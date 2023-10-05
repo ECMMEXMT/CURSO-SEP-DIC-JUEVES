@@ -1,42 +1,118 @@
-<!-- Documento HTML-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" /><!-- Etiqueta para adaptar a @media -->
-  <LINK REL="stylesheet" TYPE="text/css" HREF="estiloscalculadora.css"><!-- Enlace hoja estilos -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="estiloscalculadora.css">
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+        .calculator {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h3 {
+            font-size: 18px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 20px;
+            border: none;
+            background-color: #f9f9f9;
+        }
+        .btn-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .btn-container input[type="button"] {
+            font-size: 24px;
+            padding: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-container input[type="reset"] {
+            grid-column: span 2; /* Para hacer el botón de borrar más ancho */
+            background-color: #f44336;
+            color: white; /* Texto en blanco para el botón de borrar */
+            cursor: pointer;
+        }
+        .btn-container input[type="button"][value="="] {
+            grid-column: span 4; /* Para que el botón de resultado ocupe toda la fila */
+            background-color: #007bff;
+        }
+    </style>
 </head>
 <body>
-  <center>
-  <form name="calculator">
-    <h1><a href="#"><center>Universidad Tecnologica de Coahuila</center></a></h1>
-    <p><h3>Calculadora</h3></p>
-    <input type="textfield" name="ans" value="">
-    <br>
-    <input type="button" value="1" onClick="document.calculator.ans.value+='1'">
-    <input type="button" value="2" onClick="document.calculator.ans.value+='2'">
-    <input type="button" value="3" onClick="document.calculator.ans.value+='3'">
-    <input type="button" value="+" onClick="document.calculator.ans.value+='+'">
-    <br>
-    <input type="button" value="4" onClick="document.calculator.ans.value+='4'">
-    <input type="button" value="5" onClick="document.calculator.ans.value+='5'">
-    <input type="button" value="6" onClick="document.calculator.ans.value+='6'">
-    <input type="button" value="-" onClick="document.calculator.ans.value+='-'">
-    <br>
-    <input type="button" value="7" onClick="document.calculator.ans.value+='7'">
-    <input type="button" value="8" onClick="document.calculator.ans.value+='8'">
-    <input type="button" value="9" onClick="document.calculator.ans.value+='9'">
-    <input type="button" value="*" onClick="document.calculator.ans.value+='*'">
-    <br>
-    <input type="button" value="0" onClick="document.calculator.ans.value+='0'">
-    <input type="reset" value="c">
-    <input type="button" value="/" onClick="document.calculator.ans.value+='/'">
-    <input type="button" value="=" onClick="document.calculator.ans.value=eval(document.calculator.ans.value)">
+  <br>
+  <br>
+    <div class="calculator">
+        <h1><a href="#">Universidad Tecnológica de Coahuila</a></h1>
+        <h3>Calculadora</h3>
+        <input type="text" name="ans" value="" id="result" readonly>
+        <div class="btn-container">
+            <input type="button" value="1" onclick="appendToResult('1')">
+            <input type="button" value="2" onclick="appendToResult('2')">
+            <input type="button" value="3" onclick="appendToResult('3')">
+            <input type="button" value="+" onclick="appendToResult('+')">
+            <input type="button" value="4" onclick="appendToResult('4')">
+            <input type="button" value="5" onclick="appendToResult('5')">
+            <input type="button" value="6" onclick="appendToResult('6')">
+            <input type="button" value="-" onclick="appendToResult('-')">
+            <input type="button" value="7" onclick="appendToResult('7')">
+            <input type="button" value="8" onclick="appendToResult('8')">
+            <input type="button" value="9" onclick="appendToResult('9')">
+            <input type="button" value="" onclick="appendToResult('')">
+            <input type="button" value="0" onclick="appendToResult('0')">
+            <input type="reset" value="C" onclick="clearResult()">
+            <input type="button" value="/" onclick="appendToResult('/')">
+            <input type="button" value="=" onclick="calculateResult()">
+        </div>
+    </div>
 
-  </center>
-    </form>
-  
+    <script>
+        let currentInput = '';
+
+        function appendToResult(value) {
+            currentInput += value;
+            updateDisplay();
+        }
+
+        function clearResult() {
+            currentInput = '';
+            updateDisplay();
+        }
+
+        function calculateResult() {
+            try {
+                currentInput = eval(currentInput);
+                updateDisplay();
+            } catch (error) {
+                currentInput = 'Error';
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            const ansInput = document.getElementById('result');
+            ansInput.value = currentInput;
+        }
+    </script>
 </body>
 </html>
-<!-- Finaliza codigo calculadora html -->
- 
